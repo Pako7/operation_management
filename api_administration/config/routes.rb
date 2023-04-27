@@ -4,9 +4,10 @@ Rails.application.routes.draw do
     namespace :v1 do
       post 'login', to: 'sessions#create'
       delete 'logout', to: 'sessions#destroy'
+
+      resources :users
     end
   end
-  resources :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
