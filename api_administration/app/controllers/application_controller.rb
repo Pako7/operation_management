@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include JsonWebToken
+  include JsonErrors
 
   before_action :authorize_request
 
