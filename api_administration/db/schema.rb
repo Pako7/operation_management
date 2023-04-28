@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_031532) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_035928) do
   create_table "roles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -37,7 +37,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_031532) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "team_id"
+    t.string "english_level"
+    t.string "tech_knowledge"
+    t.string "cv_link"
+    t.date "start_team_at"
+    t.date "end_team_at"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["team_id"], name: "index_users_on_team_id"
   end
 
   create_table "users_roles", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -48,4 +55,5 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_031532) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "users", "teams"
 end
