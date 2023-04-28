@@ -14,4 +14,6 @@ if Rails.env.development?
 
   user = User.create(name: "user", email: "user@aa.com", password: "123123123")
   user.add_role :user
+
+  puts "Total users: #{User.count}"
 end

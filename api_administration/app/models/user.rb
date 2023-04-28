@@ -9,5 +9,5 @@ class User < ApplicationRecord
             length: { minimum: 6 },
             if: -> { new_record? || !password.nil? }
   
-  belongs_to :team
+  belongs_to :team, optional: true
 end
