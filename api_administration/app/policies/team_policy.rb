@@ -1,11 +1,11 @@
-class UserPolicy < ApplicationPolicy
+class TeamPolicy < ApplicationPolicy
 
   def index?
     super_admin_or_admin?
   end
 
   def show?
-    super_admin_or_admin? || user == record
+    super_admin_or_admin?
   end
 
   def create?
@@ -15,9 +15,9 @@ class UserPolicy < ApplicationPolicy
   def update?
     super_admin_or_admin?
   end
-  
+
   def destroy?
     super_admin_or_admin?
   end
-
+  
 end

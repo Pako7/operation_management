@@ -31,6 +31,7 @@ module JsonErrors
 
       def render_errors(error, message, status)
         Airbrake.notify(error)
+        puts error if Rails.env.development?
         render json: { error: message } , status: status
       end
     end
