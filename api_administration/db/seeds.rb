@@ -14,6 +14,11 @@ if Rails.env.development?
 
   user = User.create(name: "user", email: "user@aa.com", password: "123123123")
   user.add_role :user
-
   puts "Total users: #{User.count}"
+
+  team = Team.create(name: "red", client: "pepe", responsible: "pedro")
+  puts "Total teams: #{Team.count}"
+
+  user.update(team: team, start_team_at: Date.today, end_team_at: Date.tomorrow)
+  puts "Total tracking user teams: #{TrackingUserTeam.count}"
 end

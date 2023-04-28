@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_04_28_035928) do
+ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
   create_table "roles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
@@ -29,6 +29,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035928) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_teams_on_name", unique: true
+  end
+
+  create_table "tracking_user_teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "team_id", null: false
+    t.date "start_team_at"
+    t.date "end_team_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["team_id"], name: "index_tracking_user_teams_on_team_id"
+    t.index ["user_id"], name: "index_tracking_user_teams_on_user_id"
   end
 
   create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -55,5 +66,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_035928) do
     t.index ["user_id"], name: "index_users_roles_on_user_id"
   end
 
+  add_foreign_key "tracking_user_teams", "teams"
+  add_foreign_key "tracking_user_teams", "users"
   add_foreign_key "users", "teams"
 end
