@@ -4,6 +4,7 @@ module Api::V1
 
     # GET /users
     def index
+      authorize User
       @users = User.all
 
       render json: @users
@@ -11,11 +12,13 @@ module Api::V1
 
     # GET /users/1
     def show
+      authorize @user
       render json: @user
     end
 
     # POST /users
     def create
+      authorize User
       @user = User.new(user_params)
 
       if @user.save
@@ -27,6 +30,7 @@ module Api::V1
 
     # PATCH/PUT /users/1
     def update
+      authorize @user
       if @user.update(user_params)
         render json: @user
       else
@@ -36,6 +40,7 @@ module Api::V1
 
     # DELETE /users/1
     def destroy
+      authorize User
       @user.destroy
     end
 
