@@ -46,6 +46,11 @@ GEM
       erubi (~> 1.4)
       rails-dom-testing (~> 2.0)
       rails-html-sanitizer (~> 1.1, >= 1.2.0)
+    active_model_serializers (0.10.13)
+      actionpack (>= 4.1, < 7.1)
+      activemodel (>= 4.1, < 7.1)
+      case_transform (>= 0.2)
+      jsonapi-renderer (>= 0.1.1.beta1, < 0.3)
     activejob (7.0.4.3)
       activesupport (= 7.0.4.3)
       globalid (>= 0.3.6)
@@ -68,10 +73,15 @@ GEM
       tzinfo (~> 2.0)
     airbrake-ruby (6.2.1)
       rbtree3 (~> 0.6)
+    annotate (3.2.0)
+      activerecord (>= 3.2, < 8.0)
+      rake (>= 10.4, < 14.0)
     bcrypt (3.1.18)
     bootsnap (1.16.0)
       msgpack (~> 1.2)
     builder (3.2.4)
+    case_transform (0.2)
+      activesupport
     concurrent-ruby (1.2.2)
     crass (1.0.6)
     date (3.3.3)
@@ -86,8 +96,7 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
-    faker (3.2.0)
-      i18n (>= 1.8.11, < 2)
+    ffaker (2.21.0)
     globalid (1.1.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -95,6 +104,7 @@ GEM
     io-console (0.6.0)
     irb (1.6.4)
       reline (>= 0.3.0)
+    jsonapi-renderer (0.2.2)
     jwt (2.7.0)
     loofah (2.20.0)
       crass (~> 1.0.2)
@@ -180,6 +190,8 @@ GEM
       rspec-mocks (~> 3.11)
       rspec-support (~> 3.11)
     rspec-support (3.12.0)
+    shoulda-matchers (5.3.0)
+      activesupport (>= 5.2.0)
     simplecov (0.22.0)
       docile (~> 1.1)
       simplecov-html (~> 0.11)
@@ -199,12 +211,14 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  active_model_serializers (~> 0.10.0)
   airbrake-ruby
+  annotate
   bcrypt (~> 3.1.7)
   bootsnap
   debug
   factory_bot_rails
-  faker
+  ffaker
   jwt
   mysql2 (~> 0.5)
   puma (~> 5.0)
@@ -213,6 +227,7 @@ DEPENDENCIES
   rails (~> 7.0.4, >= 7.0.4.3)
   rolify
   rspec-rails
+  shoulda-matchers (~> 5.0)
   simplecov
   tzinfo-data
 

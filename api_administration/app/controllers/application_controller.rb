@@ -10,13 +10,13 @@ class ApplicationController < ActionController::API
     if request.headers['Authorization'].present?
       token = request.headers['Authorization']
       token = token.split(" ")[1]
-      begin 
+      begin
         decoded = jwt_decode(token)
         @current_user = User.find(decoded[:user_id])
       rescue => exception
         head :unauthorized
       end
-    else 
+    else
       head :unauthorized
     end
   end
