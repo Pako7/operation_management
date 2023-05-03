@@ -4,17 +4,14 @@ module Api::V1
 
     # GET /tracking_user_teams
     def index
-      @tracking_user_teams = if params[:filters].present?
-                                TrackingUserTeam.where(permitted_params)
-                              else
-                                TrackingUserTeam.all
-                              end
-
+      @tracking_user_teams = TrackingUserTeam.where(permitted_params)
       render json: @tracking_user_teams
     end
 
+    private
+
     def permitted_params
-      params[:filters].permit(:user_id, :team_id, :start_team_at, :end_team_at)
+      @permitted_params ||= params.permit(:user_id, :team_id, :start_team_at, :end_team_at)
     end
 
   end

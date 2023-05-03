@@ -8,9 +8,10 @@ module JsonErrors
       rescue_from ActionController::ParameterMissing, with: :render_400
       rescue_from ActiveRecord::RecordInvalid,
               with: :render_unprocessable_entity_response
+      rescue_from ActiveModel::MissingAttributeError, with: :render_400
 
       def render_500(error)
-        render_errors(error, 'internal server error', 500)
+        render_errors(error, 'Internal server error', 500)
       end
 
       def render_401(error)
@@ -22,7 +23,7 @@ module JsonErrors
       end
 
       def render_400(error)
-        render_errors(error, 'required parameters invalid', 400)
+        render_errors(error, "Required parameters invalid, #{error.message}", 400)
       end
 
       def render_unprocessable_entity_response(error)
@@ -31,7 +32,7 @@ module JsonErrors
 
       def render_errors(error, message, status)
         Airbrake.notify(error)
-        puts error if Rails.env.development?
+        puts error if Rails.env.test? || Rails.env.development?
         render json: { error: message } , status: status
       end
     end

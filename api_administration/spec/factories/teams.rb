@@ -13,19 +13,10 @@
 #
 #  index_teams_on_name  (name) UNIQUE
 #
-require 'rails_helper'
-
-RSpec.describe Team, type: :model do
-  let(:record) { FactoryBot.build(:team) }  
-
-  describe 'validations' do
-    it { is_expected.to validate_presence_of(:name) }
-    
-    it 'valid record' do
-      expect(record.valid?).to be_truthy
-      record.save!
-      expect(described_class.count).to be(1)
-    end
+FactoryBot.define do
+  factory :team do
+    name { FFaker::Name.name }
+    client { FFaker::Name.name }
+    responsible { FFaker::Name.name }
   end
-
 end
