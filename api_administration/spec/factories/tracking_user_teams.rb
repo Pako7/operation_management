@@ -20,20 +20,9 @@
 #  fk_rails_...  (team_id => teams.id)
 #  fk_rails_...  (user_id => users.id)
 #
-require 'rails_helper'
-
-RSpec.describe TrackingUserTeam, type: :model do
-  let(:record) { FactoryBot.build(:tracking_user_team) }  
-
-  describe 'validations' do
-
-    it { is_expected.to belong_to(:user) }
-    it { is_expected.to belong_to(:team) }
-
-    it 'valid record' do
-      expect(record.valid?).to be_truthy
-      record.save!
-      expect(described_class.count).to be(1)
-    end
+FactoryBot.define do
+  factory :tracking_user_team do
+    user { create(:user) }
+    team { create(:team) }
   end
 end
