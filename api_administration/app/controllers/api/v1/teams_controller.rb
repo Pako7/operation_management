@@ -7,13 +7,13 @@ module Api::V1
       authorize Team
       @teams = Team.all
 
-      render json: @teams
+      render json: @teams, each_serializer: Api::V1::TeamSerializer
     end
 
     # GET /teams/1
     def show
       authorize Team
-      render json: @team
+      render json: {team: Api::V1::TeamSerializer.new(@team)}
     end
 
     # POST /teams
@@ -22,7 +22,7 @@ module Api::V1
       @team = Team.new(team_params)
 
       if @team.save
-        render json: @team, status: :created
+        render json: {team: Api::V1::TeamSerializer.new(@team)}, status: :created
       else
         render json: @team.errors, status: :unprocessable_entity
       end
@@ -32,7 +32,7 @@ module Api::V1
     def update
       authorize Team
       if @team.update(team_params)
-        render json: @team
+        render json: {team: Api::V1::TeamSerializer.new(@team)}
       else
         render json: @team.errors, status: :unprocessable_entity
       end
