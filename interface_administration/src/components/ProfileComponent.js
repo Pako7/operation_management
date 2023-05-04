@@ -11,10 +11,10 @@ const ProfileComponent = () => {
   }, []);
 
   const assignCurrentUser = (currentUser) => {
+    setCurrentUser(currentUser);
     if (!currentUser) {
       <Navigate to={redirect} />;
     }
-    setCurrentUser(currentUser);
   }
 
   return (

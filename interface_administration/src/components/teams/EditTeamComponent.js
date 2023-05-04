@@ -1,34 +1,54 @@
 import React, { useState } from "react";
-import { Button, Modal, Form } from 'react-bootstrap'
-import UserService from "../../services/UserService";
+import { Button, Modal, Form } from 'react-bootstrap';
+import TeamService from "../../services/TeamService";
 
-const AddUserComponent = ({updateUsersList}) => {
+const EditTeamComponent = ({teamId}) => {
 
   const [showHideForm, setShowHideForm] = useState(false);
   const [content, setContent] = useState('');
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [client, setClient] = useState('');
+  const [responsible, setResponsible] = useState('');
 
-  const createUser = (e) => {
+  const openFormEditTeam = () => {
+    handleModalShowHide();
+
+    TeamService.get(teamId).then(
+        response => {
+         setName(response.data.team.name)
+         setClient(response.data.team.client)
+         setResponsible(response.data.team.responsible)
+        },
+        error => {
+          setContent({
+            content:
+              (error.response &&
+                error.response.data &&
+                error.response.data.message) ||
+              error.message ||
+              error.toString()
+          });
+        }
+      );
+  }
+
+  const updateTeam = (e) => {
     e.preventDefault();
 
     const payload = {
-      user: {
+      team: {
         name: name,
-        email: email,
-        password: password
+        client: client,
+        responsible: responsible
       }
     }
 
-    UserService.create(payload).then(
+    TeamService.update(teamId, payload).then(
       response => {
-        updateUsersList(response.data.user);
-
         handleModalShowHide();
-        setName('');
-        setEmail('');
-        setPassword('');
+        setName(response.data.team.name);
+        setClient(response.data.team.client);
+        setResponsible(response.data.team.responsible);
       },
       error => {
         setContent({
@@ -49,16 +69,16 @@ const AddUserComponent = ({updateUsersList}) => {
 
   return(
     <div>
-      <Button variant="primary" onClick={() => handleModalShowHide()}>
-        Add user
+      <Button onClick={() => openFormEditTeam()}>
+        Edit
       </Button>
       <Modal show={showHideForm}>
         <Modal.Header closeButton onClick={() => handleModalShowHide()}>
-        <Modal.Title>Add User</Modal.Title>
+        <Modal.Title>Edit Team</Modal.Title>
         </Modal.Header>
         <Modal.Body>
 
-          <Form onSubmit={e => { createUser(e) }}>
+          <Form onSubmit={e => { updateTeam(e) }}>
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -67,19 +87,17 @@ const AddUserComponent = ({updateUsersList}) => {
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Email</Form.Label>
+              <Form.Label>Client</Form.Label>
               <Form.Control
-                type="email"
-                value={email}
-                onChange={e => setEmail(e.target.value)} />
+                value={client}
+                onChange={e => setClient(e.target.value)} />
             </Form.Group>
 
             <Form.Group className="mb-3">
-              <Form.Label>Password</Form.Label>
+              <Form.Label>Responsible</Form.Label>
               <Form.Control
-              type="password"
-              value={password}
-              onChange={e => setPassword(e.target.value)} />
+                value={responsible}
+                onChange={e => setResponsible(e.target.value)} />
             </Form.Group>
 
             <Button variant="primary" type="submit">
@@ -98,5 +116,4 @@ const AddUserComponent = ({updateUsersList}) => {
   )
 }
 
-
-export default AddUserComponent;
+export default EditTeamComponent;

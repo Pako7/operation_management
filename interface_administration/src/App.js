@@ -15,6 +15,7 @@ const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [showUsers, setShowUsers] = useState(false);
 
+  // Apply DRY
   useEffect(() => {
     AuthService.getCurrentUser(assignCurrentUser);
   }, [])
@@ -30,64 +31,64 @@ const App = () => {
     setCurrentUser(undefined);
   }
 
-    return (
-      <div>
-        <nav className="navbar navbar-expand navbar-dark bg-dark">
-          <Link to={"/"} className="navbar-brand">
-            Administración de operación
-          </Link>
-          <div className="navbar-nav mr-auto">
-            {showUsers && (
-              <li className="nav-item">
-                <Link to={"/users"} className="nav-link">
-                  Users
-                </Link>
-              </li>
-            )}
-            {currentUser && (
-              <li className="nav-item">
-                <Link to={"/teams"} className="nav-link">
-                  Teams
-                </Link>
-              </li>
-            )}
-          </div>
-
-          {currentUser ? (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/profile"} className="nav-link">
-                  Profile
-                </Link>
-              </li>
-              <li className="nav-item">
-                <a href="/login" className="nav-link" onClick={logOut}>
-                  LogOut ({currentUser.email})
-                </a>
-              </li>
-            </div>
-          ) : (
-            <div className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to={"/login"} className="nav-link">
-                  Login
-                </Link>
-              </li>
-            </div>
+  return (
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <Link to={"/"} className="navbar-brand">
+          Administración de operación
+        </Link>
+        <div className="navbar-nav mr-auto">
+          {showUsers && (
+            <li className="nav-item">
+              <Link to={"/users"} className="nav-link">
+                Users
+              </Link>
+            </li>
           )}
-        </nav>
-
-        <div className="container mt-3">
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/users" element={<Users />} />
-            <Route path="/teams" element={<Teams />} />
-          </Routes>
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/teams"} className="nav-link">
+                Teams
+              </Link>
+            </li>
+          )}
         </div>
+
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                Profile
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a href="/login" className="nav-link" onClick={logOut}>
+                LogOut ({currentUser.email})
+              </a>
+            </li>
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+          </div>
+        )}
+      </nav>
+
+      <div className="container mt-3">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/teams" element={<Teams />} />
+        </Routes>
       </div>
-    )
+    </div>
+  )
 }
 
 export default App;
