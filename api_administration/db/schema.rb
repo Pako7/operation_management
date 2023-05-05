@@ -11,7 +11,7 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
-  create_table "roles", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "roles", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "resource_type"
     t.bigint "resource_id"
@@ -22,7 +22,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
     t.index ["resource_type", "resource_id"], name: "index_roles_on_resource"
   end
 
-  create_table "teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "teams", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "client"
     t.string "responsible"
@@ -31,7 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
     t.index ["name"], name: "index_teams_on_name", unique: true
   end
 
-  create_table "tracking_user_teams", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "tracking_user_teams", charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "team_id", null: false
     t.date "start_team_at"
@@ -42,7 +42,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
     t.index ["user_id"], name: "index_tracking_user_teams_on_user_id"
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "email"
     t.string "password_digest"
@@ -58,7 +58,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_04_28_154558) do
     t.index ["team_id"], name: "index_users_on_team_id"
   end
 
-  create_table "users_roles", id: false, charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users_roles", id: false, charset: "utf8mb4", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "role_id"
     t.index ["role_id"], name: "index_users_roles_on_role_id"
