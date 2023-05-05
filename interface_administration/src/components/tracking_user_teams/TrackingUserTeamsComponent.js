@@ -55,7 +55,9 @@ const TrackingUserTeamsComponent = () => {
             <tr>
               <th>User</th>
               <th>Team</th>
-              <th>Date assigned to this team</th>
+              <th>Start at</th>
+              <th>End at</th>
+              <th>Assigned at</th>
             </tr>
           </thead>
           <tbody>
@@ -65,6 +67,8 @@ const TrackingUserTeamsComponent = () => {
                 <tr key={tracking.id}>
                   <td>{tracking.user.name}</td>
                   <td>{tracking.team.name}</td>
+                  <td>{tracking.start_team_at}</td>
+                  <td>{tracking.end_team_at}</td>
                   <td>{tracking.created_at}</td>
                 </tr>
               )

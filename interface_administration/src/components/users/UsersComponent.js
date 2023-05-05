@@ -61,9 +61,11 @@ const UsersComponent = () => {
                     <td> {user.name} </td>
                     <td> {user.email}</td>
                     <td>
-                    <ViewUserComponent userId={user.id} />
-                    <EditUserComponent userId={user.id} />
-                    <Button variant="danger" onClick={ () => { deleteUser(user.id) }}> Delete </Button>
+                    <div className="d-flex justify-content-center">
+                      <ViewUserComponent userId={user.id} />
+                      <EditUserComponent userId={user.id} />
+                      <Button variant="danger" onClick={ () => { deleteUser(user.id) }}> Delete </Button>
+                    </div>
                     </td>
                   </tr>
                 )

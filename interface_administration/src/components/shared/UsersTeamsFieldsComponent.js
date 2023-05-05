@@ -64,7 +64,7 @@ const UsersTeamsFieldsComponent = ({makeRequest, action}) => {
   }
 
   return (
-    <div>
+    <div className="col-md-4">
       <Form onSubmit={e => { makeRequest(e, userId, teamId, startTeamAt, endTeamAt) }}>
         <Form.Group className="mb-3">
           <Form.Label>User</Form.Label>

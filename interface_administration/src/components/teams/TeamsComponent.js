@@ -54,25 +54,26 @@ const TeamsComponent = () => {
               <th>Actions</th>
             </tr>
           </thead>
-            <tbody>
-              {
-                teams.map(
-                  team =>
-                  <tr key={team.id}>
-                    <td> {team.name} </td>
-                    <td> {team.client}</td>
-                    <td> {team.responsible}</td>
-                    <td>
-                    <ViewTeamComponent teamId={team.id} />
-                    <EditTeamComponent teamId={team.id} />
-                    <Button variant="danger" onClick={ () => { deleteTeam(team.id) }}> Delete </Button>
-                    </td>
-                  </tr>
-                )
-              }
-            </tbody>
-            </table>
-
+          <tbody>
+            {
+              teams.map(
+                team =>
+                <tr key={team.id}>
+                  <td> {team.name} </td>
+                  <td> {team.client}</td>
+                  <td> {team.responsible}</td>
+                  <td>
+                    <div className="d-flex justify-content-center">
+                      <ViewTeamComponent teamId={team.id} />
+                      <EditTeamComponent teamId={team.id} />
+                      <Button variant="danger" onClick={ () => { deleteTeam(team.id) }}> Delete </Button>
+                      </div>
+                  </td>
+                </tr>
+              )
+            }
+          </tbody>
+        </table>
       </div>
     </div>
   )

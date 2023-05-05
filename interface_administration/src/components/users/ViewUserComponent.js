@@ -56,9 +56,9 @@ const ViewUserComponent = ({userId}) => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleModalShowHide()}>
-          Close
-        </Button>
+          <Button variant="secondary" onClick={() => handleModalShowHide()}>
+            Close
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

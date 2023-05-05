@@ -9,6 +9,7 @@ const AddUserComponent = ({updateUsersList}) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [isAdmin, setIsAdmin] = useState(false);
 
   const createUser = (e) => {
     e.preventDefault();
@@ -17,7 +18,8 @@ const AddUserComponent = ({updateUsersList}) => {
       user: {
         name: name,
         email: email,
-        password: password
+        password: password,
+        role: isAdmin ? 'admin' : 'user'
       }
     }
 
@@ -82,6 +84,14 @@ const AddUserComponent = ({updateUsersList}) => {
               onChange={e => setPassword(e.target.value)} />
             </Form.Group>
 
+            <Form.Group className="mb-3">
+              <Form.Check
+                label="is Admin ?"
+                value={isAdmin}
+                onChange={e => setIsAdmin(e.target.value)}
+              />
+            </Form.Group>
+
             <Button variant="primary" type="submit">
               Save
             </Button>
@@ -89,9 +99,9 @@ const AddUserComponent = ({updateUsersList}) => {
 
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleModalShowHide()}>
-          Cancel
-        </Button>
+          <Button variant="secondary" onClick={() => handleModalShowHide()}>
+            Cancel
+          </Button>
         </Modal.Footer>
       </Modal>
     </div>

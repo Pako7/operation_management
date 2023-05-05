@@ -6,7 +6,6 @@ const EditUserComponent = ({userId}) => {
 
   const [showHideForm, setShowHideForm] = useState(false);
   const [content, setContent] = useState('');
-  const [user, setUser] = useState({});
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
 
@@ -17,7 +16,6 @@ const EditUserComponent = ({userId}) => {
         response => {
           setName(response.data.user.name);
           setEmail(response.data.user.email);
-          setUser(response.data.user)
         },
         error => {
           setContent({
@@ -47,7 +45,6 @@ const EditUserComponent = ({userId}) => {
         handleModalShowHide();
         setName('');
         setEmail('');
-        setUser(response.data.user);
       },
       error => {
         setContent({
@@ -100,10 +97,10 @@ const EditUserComponent = ({userId}) => {
 
         </Modal.Body>
         <Modal.Footer>
-        <Button variant="secondary" onClick={() => handleModalShowHide()}>
-          Cancel
-        </Button>
-        </Modal.Footer>
+          <Button variant="secondary" onClick={() => handleModalShowHide()}>
+            Cancel
+          </Button>
+          </Modal.Footer>
       </Modal>
     </div>
   )
