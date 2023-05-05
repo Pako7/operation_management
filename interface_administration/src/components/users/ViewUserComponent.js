@@ -44,7 +44,14 @@ const ViewUserComponent = ({userId}) => {
         <Modal.Body>
           <Form>
             <Form.Group className="mb-3">
-              <Form.Label>{user.email}</Form.Label>
+              <div>
+                <Form.Label>{user.email}</Form.Label>
+              </div>
+              <Form.Label>Roles:</Form.Label>
+              <ul>
+                {user.roles &&
+                  user.roles.map((role, index) => <li key={index}>{role}</li>)}
+              </ul>
             </Form.Group>
           </Form>
         </Modal.Body>

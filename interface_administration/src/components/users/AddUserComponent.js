@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form } from 'react-bootstrap';
 import UserService from "../../services/UserService";
 
 const AddUserComponent = ({updateUsersList}) => {

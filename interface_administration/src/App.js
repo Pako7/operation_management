@@ -10,12 +10,13 @@ import Login from "./components/LoginComponent";
 import Profile from "./components/ProfileComponent";
 import Teams from "./components/teams/TeamsComponent";
 import Users from "./components/users/UsersComponent";
+import UserTeams from "./components/user_teams/UserTeamsComponent";
+import TrackingUserTeams from "./components/tracking_user_teams/TrackingUserTeamsComponent";
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [showUsers, setShowUsers] = useState(false);
 
-  // Apply DRY
   useEffect(() => {
     AuthService.getCurrentUser(assignCurrentUser);
   }, [])
@@ -52,6 +53,22 @@ const App = () => {
               </Link>
             </li>
           )}
+
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/user_teams"} className="nav-link">
+                UserTeams
+              </Link>
+            </li>
+          )}
+
+          {currentUser && (
+            <li className="nav-item">
+              <Link to={"/tracking_user_teams"} className="nav-link">
+                TrakingUserTeams
+              </Link>
+            </li>
+          )}
         </div>
 
         {currentUser ? (
@@ -85,6 +102,8 @@ const App = () => {
           <Route path="/profile" element={<Profile />} />
           <Route path="/users" element={<Users />} />
           <Route path="/teams" element={<Teams />} />
+          <Route path="/user_teams" element={<UserTeams />} />
+          <Route path="/tracking_user_teams" element={<TrackingUserTeams />} />
         </Routes>
       </div>
     </div>

@@ -8,8 +8,6 @@ import { useNavigate } from "react-router-dom";
 
 import AuthService from "../services/AuthService";
 
-import { withRouter } from '../common/with-router';
-
 const required = value => {
   if (!value) {
     return (

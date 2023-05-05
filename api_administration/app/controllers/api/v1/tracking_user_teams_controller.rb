@@ -4,8 +4,8 @@ module Api::V1
 
     # GET /tracking_user_teams
     def index
-      @tracking_user_teams = TrackingUserTeam.where(permitted_params)
-      render json: @tracking_user_teams
+      @tracking_user_teams = TrackingUserTeam.includes(:user, :team).where(permitted_params)
+      render json: @tracking_user_teams, each_serializer: Api::V1::TrackingUserTeamSerializer
     end
 
     private
