@@ -1,25 +1,109 @@
-import logo from './logo.svg';
+import React, { useState, useEffect } from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
-function App() {
+import AuthService from "./services/AuthService";
+import Home from "./components/HomeComponent";
+import Login from "./components/LoginComponent";
+import Profile from "./components/ProfileComponent";
+import Teams from "./components/teams/TeamsComponent";
+import Users from "./components/users/UsersComponent";
+import UserTeams from "./components/user_teams/UserTeamsComponent";
+import TrackingUserTeams from "./components/tracking_user_teams/TrackingUserTeamsComponent";
+
+const App = () => {
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    AuthService.getCurrentUser(assignCurrentUser);
+  }, []);
+
+  const assignCurrentUser = (currentUser) => {
+    setCurrentUser(currentUser);
+    setIsAdmin(currentUser.roles.includes('super_admin') || currentUser.roles.includes('admin'));
+  }
+
+  const logOut = () => {
+    AuthService.logout();
+    setIsAdmin(false);
+    setCurrentUser(undefined);
+  }
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <nav className="navbar navbar-expand navbar-dark bg-dark">
+        <Link to={"/"} className="navbar-brand">
+          Administración de operación
+        </Link>
+        <div className="navbar-nav mr-auto">
+          {isAdmin && (
+            <li className="nav-item">
+              <Link to={"/users"} className="nav-link">
+                Users
+              </Link>
+            </li>
+          )}
+          {isAdmin && (
+            <li className="nav-item">
+              <Link to={"/teams"} className="nav-link">
+                Teams
+              </Link>
+            </li>
+          )}
+          {isAdmin && (
+            <li className="nav-item">
+              <Link to={"/user_teams"} className="nav-link">
+                UserTeams
+              </Link>
+            </li>
+          )}
+          {isAdmin && (
+            <li className="nav-item">
+              <Link to={"/tracking_user_teams"} className="nav-link">
+                TrakingUserTeams
+              </Link>
+            </li>
+          )}
+        </div>
+        {currentUser ? (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/profile"} className="nav-link">
+                Profile
+              </Link>
+            </li>
+            <li className="nav-item">
+              <a href="/login" className="nav-link" onClick={logOut}>
+                LogOut ({currentUser.email})
+              </a>
+            </li>
+          </div>
+        ) : (
+          <div className="navbar-nav ml-auto">
+            <li className="nav-item">
+              <Link to={"/login"} className="nav-link">
+                Login
+              </Link>
+            </li>
+          </div>
+        )}
+      </nav>
+
+      <div className="container mt-3">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/teams" element={<Teams />} />
+          <Route path="/user_teams" element={<UserTeams />} />
+          <Route path="/tracking_user_teams" element={<TrackingUserTeams />} />
+        </Routes>
+      </div>
     </div>
-  );
+  )
 }
 
 export default App;
