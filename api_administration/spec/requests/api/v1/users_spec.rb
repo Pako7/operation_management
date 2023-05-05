@@ -32,7 +32,7 @@ RSpec.describe "/api/v1/users", type: :request do
     it '#show, returns HTTP status 200' do
       get "/api/v1/users/#{admin.id}", headers: valid_headers, as: :json
       expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body)['email']).to eq(admin.email)
+      expect(JSON.parse(response.body)['user']['email']).to eq(admin.email)
     end
   end
 

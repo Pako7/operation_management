@@ -4,7 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import './App.css';
 
 import AuthService from "./services/AuthService";
-
 import Home from "./components/HomeComponent";
 import Login from "./components/LoginComponent";
 import Profile from "./components/ProfileComponent";
@@ -15,20 +14,20 @@ import TrackingUserTeams from "./components/tracking_user_teams/TrackingUserTeam
 
 const App = () => {
   const [currentUser, setCurrentUser] = useState(undefined);
-  const [showUsers, setShowUsers] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     AuthService.getCurrentUser(assignCurrentUser);
-  }, [])
+  }, []);
 
   const assignCurrentUser = (currentUser) => {
     setCurrentUser(currentUser);
-    setShowUsers(currentUser.roles.includes('super_admin') || currentUser.roles.includes('admin'));
+    setIsAdmin(currentUser.roles.includes('super_admin') || currentUser.roles.includes('admin'));
   }
 
   const logOut = () => {
     AuthService.logout();
-    setShowUsers(false);
+    setIsAdmin(false);
     setCurrentUser(undefined);
   }
 
@@ -39,30 +38,28 @@ const App = () => {
           Administración de operación
         </Link>
         <div className="navbar-nav mr-auto">
-          {showUsers && (
+          {isAdmin && (
             <li className="nav-item">
               <Link to={"/users"} className="nav-link">
                 Users
               </Link>
             </li>
           )}
-          {currentUser && (
+          {isAdmin && (
             <li className="nav-item">
               <Link to={"/teams"} className="nav-link">
                 Teams
               </Link>
             </li>
           )}
-
-          {currentUser && (
+          {isAdmin && (
             <li className="nav-item">
               <Link to={"/user_teams"} className="nav-link">
                 UserTeams
               </Link>
             </li>
           )}
-
-          {currentUser && (
+          {isAdmin && (
             <li className="nav-item">
               <Link to={"/tracking_user_teams"} className="nav-link">
                 TrakingUserTeams
@@ -70,7 +67,6 @@ const App = () => {
             </li>
           )}
         </div>
-
         {currentUser ? (
           <div className="navbar-nav ml-auto">
             <li className="nav-item">
@@ -99,7 +95,7 @@ const App = () => {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/profile" element={<Profile />} />
+          <Route path="/profile" element={<Profile isAdmin={isAdmin} />} />
           <Route path="/users" element={<Users />} />
           <Route path="/teams" element={<Teams />} />
           <Route path="/user_teams" element={<UserTeams />} />

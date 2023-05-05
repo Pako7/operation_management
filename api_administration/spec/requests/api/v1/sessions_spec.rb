@@ -12,6 +12,7 @@ RSpec.describe "sessions", type: :request do
 
       expect(response).to have_http_status 200
       expect(JSON.parse(response.body)['token'].present?).to be_truthy
+      expect(JSON.parse(response.body)['user_id']).to eq(super_admin.id)
     end
   end
 end

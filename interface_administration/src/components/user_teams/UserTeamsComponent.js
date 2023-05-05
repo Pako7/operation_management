@@ -1,10 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import UserService from "../../services/UserService";
 import UsersTeamsFields from "../shared/UsersTeamsFieldsComponent";
 
 const UsersTeamsComponent = () => {
-  const [action, setAction] = useState('Assign');
-
   const linkUserTeam = (e, userId, teamId, startTeamAt, endTeamAt) => {
     e.preventDefault();
 
@@ -41,7 +39,7 @@ const UsersTeamsComponent = () => {
         <h1>Users Teams</h1>
         <hr />
       </header>
-      <UsersTeamsFields makeRequest={linkUserTeam} action={action} />
+      <UsersTeamsFields makeRequest={linkUserTeam} action={'Assign'} />
     </div>
   );
 

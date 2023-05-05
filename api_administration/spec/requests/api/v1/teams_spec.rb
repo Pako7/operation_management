@@ -30,7 +30,7 @@ RSpec.describe "/api/v1/teams", type: :request do
     it '#show, returns HTTP status 200' do
       get "/api/v1/teams/#{team.id}", headers: valid_headers, as: :json
       expect(response).to have_http_status(200)
-      expect(JSON.parse(response.body)['name']).to eq(team.name)
+      expect(JSON.parse(response.body)['team']['name']).to eq(team.name)
     end
   end
 

@@ -4,10 +4,8 @@ import TrackingUserTeamService from "../../services/TrackingUserTeamService";
 
 const TrackingUserTeamsComponent = () => {
   const [trackingUserTeams, setTrackingUserTeams] = useState([]);
-  const [action, setAction] = useState('Search');
 
   useEffect(() => {
-    
     TrackingUserTeamService.getAll()
       .then(response => {
           setTrackingUserTeams(response.data);
@@ -15,7 +13,6 @@ const TrackingUserTeamsComponent = () => {
       .catch(error => {
         console.log(error);
       });
-      
   }, []);
 
   const filterTrackingRecords = (e, userId, teamId, startTeamAt, endTeamAt) => {
@@ -50,7 +47,7 @@ const TrackingUserTeamsComponent = () => {
   return (
     <div>
       <h2 className="text-center">Logs</h2>
-      <UsersTeamsFields makeRequest={filterTrackingRecords} action={action} />
+      <UsersTeamsFields makeRequest={filterTrackingRecords} action={'Search'} />
       <br></br>
       <div className="row">
         <table className="table table-striped table-bordered">
